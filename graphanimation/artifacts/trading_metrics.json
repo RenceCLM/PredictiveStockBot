@@ -1,0 +1,178 @@
+{
+  "overall": {
+    "accuracy": 0.3596341340838275,
+    "balanced_accuracy": 0.36593688809935654,
+    "macro_f1": 0.35765919829709497,
+    "macro_precision": 0.3660311193747718,
+    "macro_recall": 0.36593688809935654,
+    "n_train": 40813,
+    "n_test": 9949,
+    "label_counts_train": {
+      "BUY": 15520,
+      "SELL": 13833,
+      "HOLD": 11460
+    },
+    "label_counts_test": {
+      "SELL": 3765,
+      "BUY": 3370,
+      "HOLD": 2814
+    },
+    "test_start_date": "2022-03-01",
+    "mean_final_return_pct": 15.162970876832315,
+    "mean_buy_hold_return_pct": -24.468988626116513,
+    "mean_return_advantage_pct": 39.63195950294883,
+    "n_symbols": 10
+  },
+  "feature_config": {
+    "close_lags": 20,
+    "volume_lags": 10,
+    "return_windows": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "close_sma_windows": [
+      5,
+      10,
+      20
+    ],
+    "volume_sma_windows": [
+      3,
+      10
+    ],
+    "label_horizon": 5,
+    "buy_threshold": 0.012,
+    "sell_threshold": 0.012
+  },
+  "model_config": {
+    "type": "RandomForestClassifier",
+    "n_estimators": 700,
+    "max_depth": 18,
+    "min_samples_leaf": 2,
+    "min_samples_split": 4,
+    "class_weight": "balanced_subsample"
+  },
+  "by_symbol": {
+    "AC": {
+      "final_value": 107490.08487698714,
+      "final_return_pct": 7.490084876987146,
+      "buy_hold_final_value": 58614.66821885914,
+      "buy_hold_return_pct": -41.38533178114086,
+      "n_test": 995,
+      "action_counts": {
+        "BUY": 443,
+        "HOLD": 284,
+        "SELL": 268
+      }
+    },
+    "ALI": {
+      "final_value": 62872.36772918367,
+      "final_return_pct": -37.12763227081632,
+      "buy_hold_final_value": 45435.89743589743,
+      "buy_hold_return_pct": -54.56410256410257,
+      "n_test": 995,
+      "action_counts": {
+        "BUY": 778,
+        "SELL": 193,
+        "HOLD": 24
+      }
+    },
+    "BDO": {
+      "final_value": 178246.8598438995,
+      "final_return_pct": 78.2468598438995,
+      "buy_hold_final_value": 109962.3882911802,
+      "buy_hold_return_pct": 9.962388291180213,
+      "n_test": 995,
+      "action_counts": {
+        "HOLD": 436,
+        "SELL": 349,
+        "BUY": 210
+      }
+    },
+    "BPI": {
+      "final_value": 136521.7237225529,
+      "final_return_pct": 36.52172372255291,
+      "buy_hold_final_value": 109517.03235752085,
+      "buy_hold_return_pct": 9.517032357520838,
+      "n_test": 994,
+      "action_counts": {
+        "HOLD": 559,
+        "SELL": 301,
+        "BUY": 134
+      }
+    },
+    "JFC": {
+      "final_value": 111162.01325796971,
+      "final_return_pct": 11.162013257969704,
+      "buy_hold_final_value": 76500.0,
+      "buy_hold_return_pct": -23.5,
+      "n_test": 995,
+      "action_counts": {
+        "HOLD": 523,
+        "BUY": 316,
+        "SELL": 156
+      }
+    },
+    "MBT": {
+      "final_value": 138956.35578067802,
+      "final_return_pct": 38.956355780678024,
+      "buy_hold_final_value": 114310.3448275862,
+      "buy_hold_return_pct": 14.310344827586196,
+      "n_test": 995,
+      "action_counts": {
+        "HOLD": 427,
+        "BUY": 399,
+        "SELL": 169
+      }
+    },
+    "SM": {
+      "final_value": 112154.12000001455,
+      "final_return_pct": 12.154120000014546,
+      "buy_hold_final_value": 65469.90496304118,
+      "buy_hold_return_pct": -34.53009503695882,
+      "n_test": 995,
+      "action_counts": {
+        "HOLD": 674,
+        "BUY": 205,
+        "SELL": 116
+      }
+    },
+    "SMPH": {
+      "final_value": 86144.02706398172,
+      "final_return_pct": -13.85597293601828,
+      "buy_hold_final_value": 49035.53050581064,
+      "buy_hold_return_pct": -50.96446949418936,
+      "n_test": 995,
+      "action_counts": {
+        "BUY": 655,
+        "SELL": 216,
+        "HOLD": 124
+      }
+    },
+    "TEL": {
+      "final_value": 172413.72872498704,
+      "final_return_pct": 72.41372872498704,
+      "buy_hold_final_value": 72957.74647887325,
+      "buy_hold_return_pct": -27.042253521126757,
+      "n_test": 995,
+      "action_counts": {
+        "SELL": 389,
+        "HOLD": 342,
+        "BUY": 264
+      }
+    },
+    "URC": {
+      "final_value": 45668.4277680689,
+      "final_return_pct": -54.331572231931105,
+      "buy_hold_final_value": 53506.600660066004,
+      "buy_hold_return_pct": -46.493399339933994,
+      "n_test": 995,
+      "action_counts": {
+        "BUY": 537,
+        "SELL": 236,
+        "HOLD": 222
+      }
+    }
+  }
+}

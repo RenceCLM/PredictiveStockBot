@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Playback Viewer</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  </head>
+  <body>
+    <main class="viewer-shell">
+      <div id="priceChart"></div>
+      <div id="loadingOverlay" class="loading-overlay hidden" aria-live="polite" aria-busy="true">
+        <div class="loading-card">
+          <div class="loading-spinner"></div>
+          <div class="loading-content">
+            <div id="loadingMessage" class="loading-message">Loading...</div>
+            <div class="loading-bar-wrap" aria-hidden="true">
+              <div id="loadingBar" class="loading-bar"></div>
+            </div>
+            <div id="loadingPercent" class="loading-percent">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edge-sensor edge-sensor-top" data-target="topPanel" aria-hidden="true"></div>
+      <div class="edge-sensor edge-sensor-left" data-target="leftPanel" aria-hidden="true"></div>
+      <div class="edge-sensor edge-sensor-right" data-target="rightPanel" aria-hidden="true"></div>
+
+      <div class="overlay overlay-top collapsible collapsed" id="topPanel">
+        <button class="pin-btn" data-target="topPanel" title="Pin/unpin panel">PIN</button>
+        <button class="panel-handle" data-target="topPanel" title="Show/hide panel" aria-label="Toggle top panel"></button>
+        <h1>Stock Data Viewer</h1>
+        <p id="statusText">Loading data...</p>
+      </div>
+
+      <aside class="overlay overlay-left collapsible collapsed" id="leftPanel">
+        <button class="pin-btn" data-target="leftPanel" title="Pin/unpin panel">PIN</button>
+        <button class="panel-handle" data-target="leftPanel" title="Show/hide panel" aria-label="Toggle left panel"></button>
+        <h2 class="controls-title">
+          Controls
+          <span
+            class="help instant-help"
+            data-tip="Input: up to 20 trading-day close lags, 10 volume lags, multi-window returns (1/3/5/10), moving averages, and distance-to-average features plus the symbol. Output: one-step-ahead close prediction for each frame. The played line shows step-by-step one-day forecasts, while the ghost line extends a configurable number of days ahead using only information available at that frame."
+            aria-label="Model input and output information"
+          >i</span>
+        </h2>
+
+        <label class="field-label" for="modelSelect">Model</label>
+        <select id="modelSelect">
+          <option value="trading">Trading Policy</option>
+          <option value="forecast">Price Forecast</option>
+        </select>
+
+        <label class="field-label" for="predSymbolSelect">Stock</label>
+        <select id="predSymbolSelect">
+          {% for sym in symbols %}
+          <option value="{{ sym }}">{{ sym }}</option>
+          {% endfor %}
+        </select>
+
+        <label class="field-label" for="chartTypeSelect">Graph Type</label>
+        <select id="chartTypeSelect">
+          <option value="line">Line</option>
+          <option value="candle">Candlestick</option>
+        </select>
+
+        <label class="field-label" for="speedRange">Replay Speed</label>
+        <input id="speedRange" type="range" min="40" max="900" step="20" value="200" />
+
+        <label class="field-label" for="forecastRange" data-models="forecast">Ghost Forecast Days: <span id="forecastDaysValue">5</span></label>
+        <input id="forecastRange" type="range" min="1" max="20" step="1" value="5" data-models="forecast" />
+
+        <label class="field-label" for="startingCashInput" data-models="trading">Starting Cash</label>
+        <input id="startingCashInput" type="number" min="1" step="1000" value="100000" data-models="trading" />
+
+        <div class="button-row">
+          <button id="loadPredBtn" type="button">Load</button>
+          <button id="randomRealBtn" type="button">Choose Random Stock</button>
+          <button id="randomPredBtn" type="button" data-models="forecast">Generate Random Stock Data</button>
+          <button id="focusBtn" type="button">Focus: Off</button>
+          <button id="playBtn" type="button">Play</button>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="resetBtn" type="button">Reset</button>
+        </div>
+      </aside>
+
+      <div class="overlay overlay-right collapsible collapsed" id="rightPanel">
+        <button class="pin-btn" data-target="rightPanel" title="Pin/unpin panel">PIN</button>
+        <button class="panel-handle" data-target="rightPanel" title="Show/hide panel" aria-label="Toggle right panel"></button>
+        <h2 id="infoTitle">Legend</h2>
+        <div id="legendList" class="legend-list"></div>
+      </div>
+
+      <div class="overlay overlay-bottom hidden" id="bottomPanel">
+        <div class="scrubber-row">
+          <button id="stepBackBtn" type="button">◀</button>
+          <input id="frameSlider" type="range" min="0" max="0" value="0" />
+          <button id="stepFwdBtn" type="button">▶</button>
+        </div>
+        <p id="frameLabel">Frame: 0 / 0</p>
+      </div>
+    </main>
+
+    <script id="metricsJson" type="application/json">{{ metrics|tojson }}</script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
